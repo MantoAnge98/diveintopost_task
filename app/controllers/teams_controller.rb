@@ -1,11 +1,11 @@
 class TeamsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_team, only: %i[show edit update destroy]
+  before_action :set_team, only: %i[show edit update destroy pass_owner]
 
   def index
     @teams = Team.all
   end
-
+ 
   def show
     @working_team = @team
     change_keep_team(current_user, @team)
@@ -14,7 +14,7 @@ class TeamsController < ApplicationController
   def new
     @team = Team.new
   end
-
+ 
   def edit; end
 
   def create
@@ -47,6 +47,18 @@ class TeamsController < ApplicationController
     @team = current_user.keep_team_id ? Team.find(current_user.keep_team_id) : current_user.teams.first
   end
 
+  def pass_owner
+    @assign = Assign.find(params[:assign])
+    if @team.update(owner_id: @assign.user.id)
+      #Move leader privileges and send mail to newly authorized users
+      PassOwnerMailer.pass_owner_mail(@assign, @team).deliver
+      redirect_to team_url, notice: I18n.t('views.messages.assign_to_leader', team: @team.name)
+    else
+      #What to do when leader privileges cannot be transferred
+      redirect_to team_url, notice: I18n.t('views.messages.cannot_assign_to_leader')
+    end
+  end
+  
   private
 
   def set_team
