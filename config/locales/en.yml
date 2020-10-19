@@ -222,6 +222,7 @@ en:
       failed_to_assign: 'Assignment failed'
       email_already_exist: 'Email already exist'
       cannot_delete_the_leader: 'The leader cannot be deleted'
+      cannot_delete_the_leader_or_myself: 'Can t delete it because its not the leader or the user himself'
       does_not_exist_email: 'Email does not exist. Please make an account'
       cannot_delete_only_a_member: 'This user is only a member of this team and cannot be deleted'
       delete_member: 'The member has been deleted'
@@ -249,6 +250,9 @@ en:
       team_build2: 'Create Team'
       select_team: 'Select Team'
       create_agenda: 'Create Agenda'
+      delete_agenda: 'You have deleted the agenda.'
+      delete_agenda_title: "You have deleted the agenda "%{agenda}"."
+      cannnot_delete_agenda: 'You could not delete the agenda because you do not have permission to do so.'
       input_agenda_title: 'Input title'
       input_team_name: 'Input a team name'
       recent_posts: 'Recent Posts'
@@ -263,12 +267,19 @@ en:
       edit_profile: 'Edit Profile'
       team_you_belong_to: 'The team you belong to'
       posted_articles: 'List of posted articles'
+      cannot_edit_team_info: 'Only the leader can edit your team's information'.
+      become_the_leader: 'You have been set as the leader.
+      become_the_leader_to_team: "You are now the leader of %{team}."
+      leader_authority_info: 'The leader can delete or edit team members.'
+      assign_to_leader: "You have changed the leader of %{team}."
+      cannot_assign_to_leader: 'The leader could not be changed.'
     button:
       submit: 'Submit'
       edit: 'Edit'
       delete: 'Delete'
       create: 'Create'
       invite: 'Invite'
+      pass_owner: 'Make me a leader'
     top:
       line1: 'it is an application to share a specific issue (agenda) easily'
       line2: 'for each member separately for each team or agenda'
