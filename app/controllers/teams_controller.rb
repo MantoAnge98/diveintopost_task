@@ -5,7 +5,7 @@ class TeamsController < ApplicationController
   def index
     @teams = Team.all
   end
- 
+
   def show
     @working_team = @team
     change_keep_team(current_user, @team)
@@ -14,10 +14,9 @@ class TeamsController < ApplicationController
   def new
     @team = Team.new
   end
- 
+
   def edit
-    redirect_to team_url, notice: I18n.t('views.messages.cannot_edit_team_info') 
-    unless @team.owner.id == current_user.id
+    redirect_to team_url, notice: I18n.t('views.messages.cannot_edit_team_info') unless @team.owner.id == current_user.id
   end
 
   def create
@@ -53,15 +52,15 @@ class TeamsController < ApplicationController
   def pass_owner
     @assign = Assign.find(params[:assign])
     if @team.update(owner_id: @assign.user.id)
-      #Move leader privileges and send mail to newly authorized users
+      # Move leader privileges and send mail to newly authorized users
       PassOwnerMailer.pass_owner_mail(@assign, @team).deliver
       redirect_to team_url, notice: I18n.t('views.messages.assign_to_leader', team: @team.name)
     else
-      #What to do when leader privileges cannot be transferred
+      # What to do when leader privileges cannot be transferred
       redirect_to team_url, notice: I18n.t('views.messages.cannot_assign_to_leader')
     end
   end
-  
+
   private
 
   def set_team
